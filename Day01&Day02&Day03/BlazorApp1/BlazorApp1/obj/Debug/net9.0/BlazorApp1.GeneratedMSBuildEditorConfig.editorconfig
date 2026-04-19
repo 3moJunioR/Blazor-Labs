@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/ITI/Blazor/Day01&Day02&Day03/BlazorApp1/BlazorApp1/Pages/EmpsPage/Emps.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wc1BhZ2VcRW1wcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/ITI/Blazor/Day01&Day02&Day03/BlazorApp1/BlazorApp1/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

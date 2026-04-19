@@ -1,0 +1,72 @@
+﻿@page "/employees"
+@using BlazorApp1.Models
+@using BlazorApp1.Services
+@inject IEmployeeService EmployeeService
+
+<div class="container mt-4">
+    <h3 class="mb-4">Employees</h3>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <label class="fw-bold">Select Department:</label>
+            <select class="form-select" @onchange="OnDepartmentSelected">
+                <option value="0">-- All Departments --</option>
+                @foreach (var dept in departments)
+                {
+                    <option value="@dept.Dept_Id">@dept.Dept_Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <table class="table table-hover border">
+        <thead class="table-primary">
+            <tr>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th>Age</th>
+                <th>Department</th>
+                <th>Supervisor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in filteredEmployees)
+            {
+                <tr>
+                    <td>@emp.FullName</td>
+                    <td>@emp.Address</td>
+                    <td>@emp.Age</td>
+                    <td>@emp.DepartmentName</td>
+                    <td>@emp.SupervisorName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private List<Department> departments = new();
+    private List<Employee> allEmployees = new();
+    private List<Employee> filteredEmployees = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        departments = await EmployeeService.GetDepartments();
+        allEmployees = await EmployeeService.GetEmployees();
+        filteredEmployees = allEmployees;
+    }
+
+    private void OnDepartmentSelected(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int selectedId))
+        {
+            if (selectedId == 0)
+                filteredEmployees = allEmployees;
+            else
+                filteredEmployees = allEmployees
+                    .Where(e => e.DepartmentName == departments
+                        .FirstOrDefault(d => d.Dept_Id == selectedId)?.Dept_Name)
+                    .ToList();
+        }
+    }
+}
